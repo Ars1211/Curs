@@ -1,0 +1,175 @@
+﻿<Page x:Class="Curs.Views.pages.ReadPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Curs.Views.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="1360" d:DesignWidth="2200"
+      Title="ReadPage">
+
+    <Border  BorderBrush="#C0C0C0" BorderThickness="3"  Margin="0,0,0,0" Background="Gray" Width="2200" Height="1360" >
+
+        <StackPanel Margin="30">
+
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="32" FontWeight="Bold" Content="📚 Прочитанное" Foreground="white"></Label>
+               
+
+                <Label Content="Поиск: " FontSize="20" VerticalAlignment="Center" Margin="100 0 0 0" Foreground="white"></Label>
+                <TextBox Width="250" Height="30" x:Name="SearchText" TextChanged="SearchTextChanged"  Background="Transparent" BorderThickness="0 0 0 1" BorderBrush="white" Foreground="white" SelectionOpacity="0.5" FontSize="18"></TextBox>
+            </StackPanel>
+
+
+            <DataGrid x:Name="DGBook"
+                  AutoGenerateColumns="False"
+                  AlternationCount="2"
+                  MinWidth="2000"
+                  MaxWidth="2000"
+                  RowHeight="44"
+                  Background="Transparent"
+                  BorderBrush="#D2D2D2"
+                  BorderThickness="0"
+                  GridLinesVisibility="Horizontal"
+                  HeadersVisibility="Column"
+                  CanUserAddRows="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  FontSize="15"
+                  FontFamily="Segoe UI"
+                  SelectionMode="Single"
+                  Margin="30">
+                <!-- Стили -->
+                <DataGrid.Resources>
+
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#4B4B4B"/>
+                        <Setter Property="Foreground" Value="#F5F5F5"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Height" Value="42"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="BorderBrush" Value="#6D6D6D"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        <Setter Property="Padding" Value="8,0"/>
+                    </Style>
+
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="#EEEEEE"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="Padding" Value="0,4"/>
+                        <Setter Property="BorderBrush" Value="#D2D2D2"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                        <Style.Triggers>
+
+                            <Trigger Property="AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="#D3D3D3"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#B0B0B0"/>
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#888888"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="10,4"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="BorderBrush" Value="#E0E0E0"/>
+
+                    </Style>
+
+                    <Style TargetType="Button" x:Key="ActionButton">
+                        <Setter Property="Background" Value="Gray"/>
+                        <Setter Property="Foreground" Value="#F5F5F5"/>
+                        <Setter Property="BorderBrush" Value="#C0C0C0"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Padding" Value="7,3"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                >
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Margin" Value="4,0"/>
+                    </Style>
+                </DataGrid.Resources>
+
+                <!-- Колонки -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№" MinWidth="40" MaxWidth="40" Binding="{Binding IdBook}"/>
+                    <DataGridTextColumn Header="Название" MinWidth="200" MaxWidth="200" Binding="{Binding NameBook}"/>
+                    <DataGridTextColumn Header="Автор" MinWidth="200" MaxWidth="200" Binding="{Binding Author}"/>
+                    <DataGridTextColumn Header="Издательство" MinWidth="200" MaxWidth="200" Binding="{Binding Publication}"/>
+                    <DataGridTextColumn Header="Год покупки" MinWidth="120" MaxWidth="120" Binding="{Binding Years.Year}"/>
+                    <DataGridTemplateColumn Header="Цена" MinWidth="50" MaxWidth="70">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Cost, StringFormat={}{0} ₽}" 
+                   HorizontalAlignment="Center" 
+                   Foreground="#222"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Жанр" MinWidth="190" MaxWidth="190" Binding="{Binding Genres.NameGenre}"/>
+                    <DataGridTextColumn Header="Страницы" MinWidth="100" MaxWidth="100" Binding="{Binding Pages}"/>
+                    <DataGridTextColumn Header="Формат" MinWidth="150" MaxWidth="150" Binding="{Binding Formats.NameFormat}"/>
+                    <DataGridTextColumn Header="Статус" MinWidth="120" MaxWidth="120" Binding="{Binding statuses.StatusName}"/>
+
+                    <!-- Оценка в звёздочках -->
+                    <DataGridTemplateColumn Header="Оценка" MinWidth="80" MaxWidth="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="StarText" FontSize="18" Foreground="#FFD700" HorizontalAlignment="Center"/>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Evaluations.Evaluation}" Value="1">
+                                        <Setter TargetName="StarText" Property="Text" Value="★"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Evaluations.Evaluation}" Value="2">
+                                        <Setter TargetName="StarText" Property="Text" Value="★★"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Evaluations.Evaluation}" Value="3">
+                                        <Setter TargetName="StarText" Property="Text" Value="★★★"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Evaluations.Evaluation}" Value="4">
+                                        <Setter TargetName="StarText" Property="Text" Value="★★★★"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Evaluations.Evaluation}" Value="5">
+                                        <Setter TargetName="StarText" Property="Text" Value="★★★★★"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Рецензия -->
+                    <DataGridTemplateColumn Header="Рецензия" MinWidth="537" MaxWidth="537">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Review}" TextWrapping="Wrap" Foreground="#222222"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                  
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
+    </Border>
+</Page>

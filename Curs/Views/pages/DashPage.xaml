@@ -1,0 +1,279 @@
+﻿<Page x:Class="Curs.Views.pages.DashPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Curs.Views.pages"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      mc:Ignorable="d" 
+      Width="2000" 
+      Title="Дэшборд">
+
+    <ScrollViewer Width="auto" VerticalScrollBarVisibility="Hidden">
+        
+    
+    <StackPanel Width="2000" Orientation="Vertical" Height="2520">
+        
+        <Border BorderBrush="#C0C0C0" BorderThickness="3"  Margin="0,10,0,50" Background="Gray" Width="2000" Height="600">
+
+            <StackPanel HorizontalAlignment="Center">
+                <!-- Заголовок -->
+                <StackPanel Orientation="Horizontal" Margin="0 50 0 50" HorizontalAlignment="Center">
+                    <TextBlock Text="📚 Поиск книги" FontSize="32" Foreground="white" FontWeight="Bold" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+
+                    <!-- Комбо-бокс -->
+                    <ComboBox x:Name="NameBookComboBox"
+               DisplayMemberPath="NameBook"
+               Margin="50,5,0,0"
+               Width="300" Height="30"
+               VerticalAlignment="Top"
+               SelectionChanged="NameBookComboBox_SelectionChanged"
+               Background="#444444"
+               Foreground="black"
+               FontSize="16"
+               BorderThickness="0"
+           
+               />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400" Margin="30 0 0 0">
+                        <Image x:Name="ImageBox" Width="350" Height="350"></Image>
+
+                        <TextBlock x:Name="EvaluationTextBox" Foreground="Gold" FontSize="26" Margin="100,0,0,0"/>
+                    </StackPanel>
+
+
+                    <StackPanel Width="400">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Автор:" FontWeight="Bold" Foreground="white" FontSize="20" Width="150"/>
+                            <TextBlock x:Name="AuthorTextBox" Foreground="white" FontSize="20" Margin="0,0,0,10" TextDecorations="Underline" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Жанр:" FontWeight="Bold" Foreground="white" FontSize="20" Width="150"/>
+                            <TextBlock x:Name="GenreTextBox" Foreground="white" FontSize="20" Margin="0,0,0,10" TextDecorations="Underline"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Формат:" FontWeight="Bold" Foreground="white" FontSize="20" Width="150"/>
+                            <TextBlock x:Name="FormatTextBox" Foreground="white" FontSize="20" Margin="0,0,0,10" TextDecorations="Underline"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Статус:" FontWeight="Bold" Foreground="white" FontSize="20" Width="150"/>
+                            <TextBlock x:Name="StatusTextBox" Foreground="white" FontSize="20" Margin="0,0,0,10" TextDecorations="Underline"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Страницы:" FontWeight="Bold" Foreground="white" FontSize="20" Width="150"/>
+                            <TextBlock x:Name="PagesTextBlock" Foreground="white" FontSize="20" Margin="0,0,0,10" TextDecorations="Underline"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Border  BorderBrush="#C0C0C0" BorderThickness="3"  Background="Gray" Width="700">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Рецензия:" FontWeight="Bold" Foreground="white" FontSize="20" HorizontalAlignment="Center"/>
+                            <Line Stroke="#C0C0C0" X1="700" StrokeThickness="5  " Margin="0 0 0 10"/>
+                            <TextBlock x:Name="ReviewTextBox" Foreground="white" FontSize="20" TextWrapping="Wrap" Margin="15,0,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+
+                </StackPanel>
+
+            </StackPanel>
+
+
+        </Border>
+
+        <Border Width="2000" Height="600" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="0,0,0,0" Background="Gray">
+            <StackPanel>
+                <TextBlock Text="Статистика" Foreground="white" FontSize="32" TextWrapping="Wrap" Margin="0,10,0,10"  HorizontalAlignment="Center" FontWeight="bold"></TextBlock>
+                <Line Stroke="#C0C0C0" X1="2000" StrokeThickness="6" Margin="0 0 0 10"/>
+                <StackPanel Orientation="Horizontal" Margin="30">
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                    <StackPanel>
+                            <TextBlock Text="Всего книг прочитано" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                        <TextBlock x:Name="CountTB" Foreground="white" FontSize="40" TextWrapping="Wrap"  FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 30 0 0"></TextBlock>
+                    </StackPanel>
+                </Border>
+                    
+                <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                    <StackPanel>
+                            <TextBlock Text="Процент прочитанных книг" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="CountPTB" Foreground="white" FontSize="40" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                </Border>
+
+                <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                    <StackPanel>
+                            <TextBlock Text="Страниц прочитано всего" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="CountPages" Foreground="white" FontSize="40" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                </Border>
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Всего книг в наличии" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="PlanTB" Foreground="white" FontSize="40" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Всего книг читаю сейчас" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="AllBooksTo" Foreground="white" FontSize="40" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Любимый формат книги" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="FavoriteFormatTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Самый читаемый жанр" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="FavoriteGenreTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Самый читаемый автор" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="FavoriteAuthorTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Любимое издание книги" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="FavoritePubTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+                <!-- 2 -->
+                <StackPanel Orientation="Horizontal" Margin="30 0 30 0">
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Стоимость библиотеки" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="CostAllTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Всего книг брошено" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="AllBookBrTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Самая объемная книга" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="VBookMaxTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Самый маленький объем" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="VBokMinTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Средний объем книг" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="AvgVBookTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Процент перечитанных книг" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="BookGTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Всего жанров книг прочитано" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="AllGenreTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Всего форматов книг прочиатно" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="AllFormatTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Width="200" Height="200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="10,0,0,0" Background="Gray">
+                        <StackPanel>
+                            <TextBlock Text="Самая дешевая прочитанная книга" Foreground="white" FontSize="20" TextWrapping="Wrap"  FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                            <Line Stroke="#C0C0C0" X1="200" StrokeThickness="6" Margin="0 0 0 0"/>
+                            <TextBlock x:Name="AllCostTB" Foreground="white" FontSize="30" TextWrapping="Wrap"  FontWeight="Bold" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Border>
+
+
+
+                </StackPanel>
+                
+                
+            </StackPanel>
+            
+        </Border>
+
+
+        <Border  Width="2000" Height="1200" BorderBrush="#C0C0C0" BorderThickness="3"  Margin="0,50,0,50" Background="Gray">
+                
+                <StackPanel Orientation="Vertical" >
+                    <TextBlock Text="Диаграммы" FontSize="32" Foreground="white" FontWeight="Bold" Margin="0,10,0,10" HorizontalAlignment="Center"></TextBlock>
+                    <Line Stroke="#C0C0C0" X1="2000" StrokeThickness="6" Margin="0 0 0 10"/>
+
+                    <TextBlock Text="1. Статистика оценок" FontSize="20" Foreground="white"  Margin="0,0,0,0" HorizontalAlignment="Center"></TextBlock>
+                    
+                    <lvc:CartesianChart Name="RatingChart" 
+                    LegendLocation="Right"
+                    Margin="100 50 0 0" Height="450" Width="800" />
+
+
+                    <TextBlock Text="2. Прочитанные жанры" FontSize="20" Foreground="white"  Margin="0,30,0,10" HorizontalAlignment="Center"></TextBlock>
+                    <lvc:PieChart x:Name="RatingChart2" Margin="0 50 0 0" Height="450" Width="800" />
+        
+                
+                
+                </StackPanel>
+        </Border>
+        
+
+
+
+    </StackPanel>
+    </ScrollViewer>
+
+
+</Page>

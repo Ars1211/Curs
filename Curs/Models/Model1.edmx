@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище BookTrackerModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bingo">
+          <Key>
+            <PropertyRef Name="idBingo" />
+          </Key>
+          <Property Name="idBingo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="IdBook" />
+          </Key>
+          <Property Name="IdBook" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameBook" Type="nvarchar" MaxLength="100" />
+          <Property Name="Author" Type="nvarchar" MaxLength="100" />
+          <Property Name="Publication" Type="nvarchar" MaxLength="100" />
+          <Property Name="IdYear" Type="int" />
+          <Property Name="Cost" Type="float" />
+          <Property Name="Genre" Type="int" />
+          <Property Name="Pages" Type="int" />
+          <Property Name="Format" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Evaluation" Type="int" />
+          <Property Name="Review" Type="nvarchar" MaxLength="500" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Evaluations">
+          <Key>
+            <PropertyRef Name="IdEvaluation" />
+          </Key>
+          <Property Name="IdEvaluation" Type="int" Nullable="false" />
+          <Property Name="Evaluation" Type="int" />
+        </EntityType>
+        <EntityType Name="Formats">
+          <Key>
+            <PropertyRef Name="IdFormat" />
+          </Key>
+          <Property Name="IdFormat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameFormat" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="IdGenre" />
+          </Key>
+          <Property Name="IdGenre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameGenre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="statuses">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="IdCard" />
+          </Key>
+          <Property Name="IdCard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdGenre" Type="int" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Years">
+          <Key>
+            <PropertyRef Name="IdYear" />
+          </Key>
+          <Property Name="IdYear" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" />
+        </EntityType>
+        <Association Name="FK_Books_Evaluations">
+          <End Role="Evaluations" Type="Self.Evaluations" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evaluations">
+              <PropertyRef Name="IdEvaluation" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Evaluation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Formats">
+          <End Role="Formats" Type="Self.Formats" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formats">
+              <PropertyRef Name="IdFormat" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Format" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Genres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="IdGenre" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_statuses">
+          <End Role="statuses" Type="Self.statuses" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statuses">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Years">
+          <End Role="Years" Type="Self.Years" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Years">
+              <PropertyRef Name="IdYear" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="IdYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wishlist_Genres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="IdGenre" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="IdGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BookTrackerModelContainer">
+          <EntitySet Name="Bingo" EntityType="Self.Bingo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evaluations" EntityType="Self.Evaluations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Formats" EntityType="Self.Formats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statuses" EntityType="Self.statuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Years" EntityType="Self.Years" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Books_Evaluations" Association="Self.FK_Books_Evaluations">
+            <End Role="Evaluations" EntitySet="Evaluations" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Formats" Association="Self.FK_Books_Formats">
+            <End Role="Formats" EntitySet="Formats" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Genres" Association="Self.FK_Books_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_statuses" Association="Self.FK_Books_statuses">
+            <End Role="statuses" EntitySet="statuses" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Years" Association="Self.FK_Books_Years">
+            <End Role="Years" EntitySet="Years" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wishlist_Genres" Association="Self.FK_Wishlist_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="IdBook" />
+          </Key>
+          <Property Name="IdBook" Type="Int32" Nullable="false" />
+          <Property Name="NameBook" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Publication" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Double" />
+          <Property Name="Genre" Type="Int32" />
+          <Property Name="Pages" Type="Int32" />
+          <Property Name="Format" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Evaluation" Type="Int32" />
+          <Property Name="Review" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Evaluations" Relationship="Self.FK_Books_Evaluations" FromRole="Books" ToRole="Evaluations" />
+          <NavigationProperty Name="Formats" Relationship="Self.FK_Books_Formats" FromRole="Books" ToRole="Formats" />
+          <NavigationProperty Name="Genres" Relationship="Self.FK_Books_Genres" FromRole="Books" ToRole="Genres" />
+          <NavigationProperty Name="statuses" Relationship="Self.FK_Books_statuses" FromRole="Books" ToRole="statuses" />
+          <Property Name="IdYear" Type="Int32" />
+          <NavigationProperty Name="Years" Relationship="BookTrackerModel.FK_Books_Years" FromRole="Books" ToRole="Years" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Evaluations">
+          <Key>
+            <PropertyRef Name="IdEvaluation" />
+          </Key>
+          <Property Name="IdEvaluation" Type="Int32" Nullable="false" />
+          <Property Name="Evaluation" Type="Int32" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Evaluations" FromRole="Evaluations" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Formats">
+          <Key>
+            <PropertyRef Name="IdFormat" />
+          </Key>
+          <Property Name="IdFormat" Type="Int32" Nullable="false" />
+          <Property Name="NameFormat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Formats" FromRole="Formats" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="IdGenre" />
+          </Key>
+          <Property Name="IdGenre" Type="Int32" Nullable="false" />
+          <Property Name="NameGenre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Genres" FromRole="Genres" ToRole="Books" />
+          <NavigationProperty Name="Wishlist" Relationship="BookTrackerModel.FK_Wishlist_Genres" FromRole="Genres" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="statuses">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="Int32" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_statuses" FromRole="statuses" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Books_Evaluations">
+          <End Role="Evaluations" Type="Self.Evaluations" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evaluations">
+              <PropertyRef Name="IdEvaluation" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Evaluation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Formats">
+          <End Role="Formats" Type="Self.Formats" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formats">
+              <PropertyRef Name="IdFormat" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Format" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Genres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="IdGenre" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_statuses">
+          <End Role="statuses" Type="Self.statuses" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statuses">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookTrackerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Books" />
+          <EntitySet Name="Evaluations" EntityType="Self.Evaluations" />
+          <EntitySet Name="Formats" EntityType="Self.Formats" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" />
+          <EntitySet Name="statuses" EntityType="Self.statuses" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Books_Evaluations" Association="Self.FK_Books_Evaluations">
+            <End Role="Evaluations" EntitySet="Evaluations" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Formats" Association="Self.FK_Books_Formats">
+            <End Role="Formats" EntitySet="Formats" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Genres" Association="Self.FK_Books_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_statuses" Association="Self.FK_Books_statuses">
+            <End Role="statuses" EntitySet="statuses" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <EntitySet Name="Wishlist" EntityType="BookTrackerModel.Wishlist" />
+          <EntitySet Name="Years" EntityType="BookTrackerModel.Years" />
+          <AssociationSet Name="FK_Books_Years" Association="BookTrackerModel.FK_Books_Years">
+            <End Role="Years" EntitySet="Years" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wishlist_Genres" Association="BookTrackerModel.FK_Wishlist_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+          <EntitySet Name="Bingo" EntityType="BookTrackerModel.Bingo" />
+        </EntityContainer>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="IdCard" />
+          </Key>
+          <Property Name="IdCard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IdGenre" Type="Int32" />
+          <NavigationProperty Name="Genres" Relationship="BookTrackerModel.FK_Wishlist_Genres" FromRole="Wishlist" ToRole="Genres" />
+        </EntityType>
+        <EntityType Name="Years">
+          <Key>
+            <PropertyRef Name="IdYear" />
+          </Key>
+          <Property Name="IdYear" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" />
+          <NavigationProperty Name="Books" Relationship="BookTrackerModel.FK_Books_Years" FromRole="Years" ToRole="Books" />
+        </EntityType>
+        <Association Name="FK_Books_Years">
+          <End Type="BookTrackerModel.Years" Role="Years" Multiplicity="0..1" />
+          <End Type="BookTrackerModel.Books" Role="Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Years">
+              <PropertyRef Name="IdYear" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="IdYear" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wishlist_Genres">
+          <End Type="BookTrackerModel.Genres" Role="Genres" Multiplicity="0..1" />
+          <End Type="BookTrackerModel.Wishlist" Role="Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="IdGenre" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="IdGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bingo">
+          <Key>
+            <PropertyRef Name="idBingo" />
+          </Key>
+          <Property Name="idBingo" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BookTrackerModelContainer" CdmEntityContainer="BookTrackerEntities">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="BookTrackerModel.Books">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="IdYear" ColumnName="IdYear" />
+                <ScalarProperty Name="IdBook" ColumnName="IdBook" />
+                <ScalarProperty Name="NameBook" ColumnName="NameBook" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Publication" ColumnName="Publication" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Pages" ColumnName="Pages" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Evaluation" ColumnName="Evaluation" />
+                <ScalarProperty Name="Review" ColumnName="Review" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evaluations">
+            <EntityTypeMapping TypeName="BookTrackerModel.Evaluations">
+              <MappingFragment StoreEntitySet="Evaluations">
+                <ScalarProperty Name="IdEvaluation" ColumnName="IdEvaluation" />
+                <ScalarProperty Name="Evaluation" ColumnName="Evaluation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formats">
+            <EntityTypeMapping TypeName="BookTrackerModel.Formats">
+              <MappingFragment StoreEntitySet="Formats">
+                <ScalarProperty Name="IdFormat" ColumnName="IdFormat" />
+                <ScalarProperty Name="NameFormat" ColumnName="NameFormat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="BookTrackerModel.Genres">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="IdGenre" ColumnName="IdGenre" />
+                <ScalarProperty Name="NameGenre" ColumnName="NameGenre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statuses">
+            <EntityTypeMapping TypeName="BookTrackerModel.statuses">
+              <MappingFragment StoreEntitySet="statuses">
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BookTrackerModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlist">
+            <EntityTypeMapping TypeName="BookTrackerModel.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="IdGenre" ColumnName="IdGenre" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Years">
+            <EntityTypeMapping TypeName="BookTrackerModel.Years">
+              <MappingFragment StoreEntitySet="Years">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="IdYear" ColumnName="IdYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bingo">
+            <EntityTypeMapping TypeName="BookTrackerModel.Bingo">
+              <MappingFragment StoreEntitySet="Bingo">
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="idBingo" ColumnName="idBingo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

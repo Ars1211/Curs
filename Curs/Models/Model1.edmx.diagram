@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ba5f447b4bc44b8e9b171280a1011076" Name="Diagram1">
+        <EntityTypeShape EntityType="BookTrackerModel.Books" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookTrackerModel.Evaluations" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookTrackerModel.Formats" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookTrackerModel.Genres" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookTrackerModel.statuses" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookTrackerModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="BookTrackerModel.FK_Books_Evaluations" ManuallyRouted="false" />
+        <AssociationConnector Association="BookTrackerModel.FK_Books_Formats" ManuallyRouted="false" />
+        <AssociationConnector Association="BookTrackerModel.FK_Books_Genres" ManuallyRouted="false" />
+        <AssociationConnector Association="BookTrackerModel.FK_Books_statuses" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BookTrackerModel.Wishlist" Width="1.5" PointX="8.125" PointY="3.75" />
+        <EntityTypeShape EntityType="BookTrackerModel.Years" Width="1.5" PointX="5" PointY="7" />
+        <AssociationConnector Association="BookTrackerModel.FK_Books_Years" />
+        <AssociationConnector Association="BookTrackerModel.FK_Wishlist_Genres" />
+        <EntityTypeShape EntityType="BookTrackerModel.Bingo" Width="1.5" PointX="5.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
